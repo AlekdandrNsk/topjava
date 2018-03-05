@@ -20,7 +20,7 @@ public class MealServlet extends HttpServlet {
         log.debug("redirect to meals");
 
         request.setAttribute("meals", MealsUtil.getFilteredWithExceeded(MealsUtil.createList(),
-                LocalTime.of(0, 0), LocalTime.of(23, 59), 2000));
+                LocalTime.MIN, LocalTime.MAX, 2000));
         request.getRequestDispatcher("/meals.jsp").forward(request, response);
     }
 }

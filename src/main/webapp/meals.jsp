@@ -10,6 +10,16 @@
             font-size: 120%;
             font-family: verdana, serif;
         }
+
+        #true {
+            color: red;
+        }
+
+        #false {
+            color: green;
+        }
+
+
     </style>
 </head>
 <body>
@@ -24,10 +34,10 @@
     </tr>
 
     <c:forEach items="${meals}" var="meal">
-    <tr align="center" bgcolor="#e6e6fa">
-        <td><span style="${meal.isExceed() ? "color: red" : "color: green"}">${meal.getDateTime()}</span></td>
-        <td><span style="${meal.isExceed() ? "color: red" : "color: green"}">${meal.getDescription()}</span></td>
-        <td><span style="${meal.isExceed() ? "color: red" : "color: green"}">${meal.getCalories()}</span></td>
+    <tr align="center" bgcolor="#e6e6fa" id="${meal.isExceed()}">
+        <td>${meal.getDateTime()}</td>
+        <td>${meal.getDescription()}</td>
+        <td>${meal.getCalories()}</td>
     <tr>
         </c:forEach>
 </table>
