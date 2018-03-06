@@ -10,27 +10,28 @@
             font-size: 120%;
             font-family: verdana, serif;
         }
-
         #true {
             color: red;
         }
-
         #false {
             color: green;
         }
-
-
     </style>
 </head>
+
 <body>
-<h3><a href="index.html">Home</a></h3>
-<h2>Meals</h2>
+<h2 align="center">Meals</h2>
+<h3 align="center"><a href="index.html">Home</a>&nbsp;&nbsp;&nbsp;
+    <a href="meal.jsp">Add New Meal</a></h3>
+
 <table align="center" border="1" rules="all" width=50% cellpadding="7">
 
     <tr align="center" bgcolor="#f5f5dc">
-        <td width=30%>Дата/Время</td>
-        <td width=40%>Описание</td>
-        <td width=30%>Калории</td>
+        <td>Дата/Время</td>
+        <td>Описание</td>
+        <td>Калории</td>
+        <td></td>
+        <td></td>
     </tr>
 
     <c:forEach items="${meals}" var="meal">
@@ -38,8 +39,41 @@
         <td>${meal.getDateTime()}</td>
         <td>${meal.getDescription()}</td>
         <td>${meal.getCalories()}</td>
+        <td><a href="meals?action=edit&id=<c:out value="${meal.id}"/>"/>редактировать</td>
+        <td><a href="meals?action=delete&id=<c:out value='${meal.id}'/>"/>удалить</td>
     <tr>
         </c:forEach>
 </table>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
