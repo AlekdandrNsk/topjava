@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
@@ -36,11 +37,11 @@
 
     <c:forEach items="${meals}" var="meal">
     <tr align="center" bgcolor="#e6e6fa" id="${meal.isExceed()}">
-        <td>${meal.getDateTime()}</td>
+        <td>${fn:replace(meal.getDateTime(), 'T', ' ')}</td>
         <td>${meal.getDescription()}</td>
         <td>${meal.getCalories()}</td>
-        <td><a href="meals?action=edit&id=<c:out value="${meal.id}"/>"/>редактировать</td>
-        <td><a href="meals?action=delete&id=<c:out value='${meal.id}'/>"/>удалить</td>
+        <td><a href="meals?action=edit&id=<c:out value="${meal.id}"/>">редактировать</a></td>
+        <td><a href="meals?action=delete&id=<c:out value='${meal.id}'/>">удалить</a></td>
     <tr>
         </c:forEach>
 </table>

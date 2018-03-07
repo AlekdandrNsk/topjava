@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class FirstCRUDImpl implements FirstCRUD {
+public class SimpleCRUDImpl implements SimpleCRUD {
     private Map<Integer, Meal> mealDB = new ConcurrentHashMap<>();
     private static AtomicInteger mealId = new AtomicInteger(1);
 

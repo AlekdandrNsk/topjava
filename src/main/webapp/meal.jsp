@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -16,10 +17,10 @@
 <h2>Edit</h2>
 
 <form method="POST" action='meals'>
-    ID : <input type="text" readonly="readonly" name="id_edit"
-                value="<c:out value="${meal.id == 0 ? '' : meal.id}" />"/> <br/>
     Дата/Время : <input
-        type="datetime" name="datetime" value="<c:out value="${meal.id == 0 ? '' : meal.getDateTimeT()}" />"/> <br/>
+        type="datetime" name="datetime" value="<c:out value="${meal.id == 0 ? '' : fn:replace(meal.dateTime, 'T', ' ')}" />"/>
+    <input type="hidden" readonly="readonly" name="id_edit"
+           value="<c:out value="${meal.id == 0 ? '' : meal.id}" />"/> <br/>
     Описание : <input
         type="text" name="description"
         value="<c:out value="${meal.id == 0 ? '' : meal.description}" />"/> <br/>

@@ -1,7 +1,7 @@
 package ru.javawebinar.topjava.web;
 
 import org.slf4j.Logger;
-import ru.javawebinar.topjava.firstCRUD.FirstCRUDImpl;
+import ru.javawebinar.topjava.firstCRUD.SimpleCRUDImpl;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.util.TimeUtil;
@@ -21,11 +21,11 @@ import static org.slf4j.LoggerFactory.getLogger;
 @WebServlet(urlPatterns = "/meals", name = "MealServlet")
 public class MealServlet extends HttpServlet {
     private static final Logger log = getLogger(UserServlet.class);
-    private FirstCRUDImpl firstCRUDimpl = new FirstCRUDImpl();
+    private SimpleCRUDImpl simpleCRUDimpl = new SimpleCRUDImpl();
 
     @Override
     public void init() throws ServletException {
-        firstCRUDimpl.getMealDB();
+        simpleCRUDimpl.getMealDB();
     }
 
     @Override
@@ -41,13 +41,10 @@ public class MealServlet extends HttpServlet {
         LocalDateTime dlt = LocalDateTime.parse(request.getParameter("datetime"), TimeUtil.formatter);
 
         if (id == 0){
-            firstCRUDimpl.createMeal(new Meal(dlt, description, calories));
+            simpleCRUDimpl.createMeal(new Meal(dlt, description, calories));
         }else {
-            Meal meal = firstCRUDimpl.getMeal(id);
-            meal.setCalories(calories);
-            meal.setDescription(description);
-            meal.setDateTime(dlt);
-            firstCRUDimpl.updateMeal(meal);
+            Meal meal = simpleCRUDimpl.getMeal(id);
+            simpleCRUDimpl.updateMeal(new Meal(meal.getId(), dlt, description, calories));
         }
 
         response.sendRedirect("meals");
@@ -63,18 +60,19 @@ public class MealServlet extends HttpServlet {
 
         if(action != null){
             if (action.equals("delete")){
-                firstCRUDimpl.deleteMeal(Integer.parseInt(id));
-            }if (action.equals("edit")){
-                Meal meal = firstCRUDimpl.getMeal(Integer.parseInt(id));
+                simpleCRUDimpl.deleteMeal(Integer.parseInt(id));
+                response.sendRedirect("meals");
+            }else if (action.equals("edit")){
+                Meal meal = simpleCRUDimpl.getMeal(Integer.parseInt(id));
                 request.setAttribute("meal", meal);
                 request.getRequestDispatcher("meal.jsp").forward(request, response);
             }
-        }
-
-
-        request.setAttribute("meals", MealsUtil.getFilteredWithExceeded(firstCRUDimpl.getAllMeals(),
+        }else {request.setAttribute("meals", MealsUtil.getFilteredWithExceeded(simpleCRUDimpl.getAllMeals(),
                 LocalTime.MIN, LocalTime.MAX, 2000));
-        request.getRequestDispatcher("/meals.jsp").forward(request, response);
+            request.getRequestDispatcher("/meals.jsp").forward(request, response);}
+
+
+
     }
 }
 

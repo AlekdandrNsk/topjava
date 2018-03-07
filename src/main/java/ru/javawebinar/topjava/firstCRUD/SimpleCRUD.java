@@ -5,7 +5,7 @@ import ru.javawebinar.topjava.model.Meal;
 import java.util.List;
 import java.util.Map;
 
-public interface FirstCRUD {
+public interface SimpleCRUD {
 
     void createMeal(Meal meal);
 
