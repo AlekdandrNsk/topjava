@@ -27,35 +27,35 @@ public class MealRestController {
     private MealService service;
 
     public List<Meal> getAll() {
-        log.info("getAll for User {}", AuthorizedUser.getID());
-        return service.getAll(AuthorizedUser.getID());
+        log.info("getAll for User {}", AuthorizedUser.getId());
+        return service.getAll(AuthorizedUser.getId());
     }
 
-    public void delete(int id, int userID) {
-        log.info("delete {} for User {}", id, AuthorizedUser.getID());
-        service.delete(id, userID);
+    public void delete(int id) {
+        log.info("delete {} for User {}", id, AuthorizedUser.getId());
+        service.delete(id, AuthorizedUser.getId());
     }
 
-    public Meal get(int id, int userID) throws NotFoundException {
+    public Meal get(int id) throws NotFoundException {
         log.info("get {}", id);
-        return service.get(id, userID);
+        return service.get(id, AuthorizedUser.getId());
     }
 
 
-    public Meal create(Meal meal, int userID) {
-        log.info("create {} for User {}", meal, AuthorizedUser.getID());
+    public Meal create(Meal meal) {
+        log.info("create {} for User {}", meal, AuthorizedUser.getId());
         checkNew(meal);
-        return service.save(meal, userID);
+        return service.save(meal, AuthorizedUser.getId());
     }
 
-    public void update(Meal meal, int id, int userID) {
-        log.info("update {} with id={} for User {}", meal, id, AuthorizedUser.getID());
+    public void update(Meal meal, int id) {
+        log.info("update {} with id={} for User {}", meal, id, AuthorizedUser.getId());
         assureIdConsistent(meal, id);
-        service.update(meal, userID);
+        service.update(meal, AuthorizedUser.getId());
     }
 
     public List<MealWithExceed> getBetween(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
-        int userId = AuthorizedUser.getID();
+        int userId = AuthorizedUser.getId();
         log.info("getBetween dates({} - {}) time({} - {}) for User {}", startDate, endDate, startTime, endTime, userId);
         return MealsUtil.getFilteredWithExceeded(
                 service.getBetween(startDate != null ?

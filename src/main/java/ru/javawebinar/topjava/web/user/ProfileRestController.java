@@ -8,14 +8,14 @@ import ru.javawebinar.topjava.model.User;
 public class ProfileRestController extends AbstractUserController {
 
     public User get() {
-        return super.get(AuthorizedUser.getID());
+        return super.get(AuthorizedUser.getId());
     }
 
     public void delete() {
-        super.delete(AuthorizedUser.getID());
+        super.delete(AuthorizedUser.getId());
     }
 
     public void update(User user) {
-        super.update(user, AuthorizedUser.getID());
+        super.update(user, AuthorizedUser.getId());
     }
 }

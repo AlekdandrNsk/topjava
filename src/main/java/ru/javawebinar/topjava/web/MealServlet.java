@@ -62,13 +62,13 @@ public class MealServlet extends HttpServlet {
             Meal meal = new Meal(id.isEmpty() ? null : Integer.valueOf(id),
                     LocalDateTime.parse(request.getParameter("dateTime")),
                     request.getParameter("description"),
-                    Integer.valueOf(request.getParameter("calories")), AuthorizedUser.getID());
+                    Integer.valueOf(request.getParameter("calories")), AuthorizedUser.getId());
             log.info(meal.isNew() ? "Create {}" : "Update {}", meal);
 
             if (meal.isNew()) {
-                mealRestController.create(meal, AuthorizedUser.getID());
+                mealRestController.create(meal);
             } else {
-                mealRestController.update(meal, meal.getId(), AuthorizedUser.getID());
+                mealRestController.update(meal, meal.getId());
             }
 
             response.sendRedirect("meals");
@@ -78,32 +78,34 @@ public class MealServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (request.getParameter("userID") != null) {
-            AuthorizedUser.setId(Integer.parseInt(request.getParameter("userID")));
-        }
+        if (request.getParameter("userId") != null) {
+            AuthorizedUser.setId(Integer.parseInt(request.getParameter("userId")));
+            response.sendRedirect("meals");
+        } else {
 
-        switch (action == null ? "all" : action) {
-            case "delete":
-                int id = getId(request);
-                log.info("Delete {}", id);
-                mealRestController.delete(id, AuthorizedUser.getID());
-                response.sendRedirect("meals");
-                break;
-            case "create":
-            case "update":
-                final Meal meal = "create".equals(action) ?
-                        new Meal(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), "", 1000, AuthorizedUser.getID()) :
-                        mealRestController.get(getId(request), AuthorizedUser.getID());
-                request.setAttribute("meal", meal);
-                request.getRequestDispatcher("/mealForm.jsp").forward(request, response);
-                break;
-            case "all":
-            default:
-                log.info("getAll");
-                request.setAttribute("meals",
-                        MealsUtil.getWithExceeded(mealRestController.getAll(), MealsUtil.DEFAULT_CALORIES_PER_DAY));
-                request.getRequestDispatcher("/meals.jsp").forward(request, response);
-                break;
+            switch (action == null ? "all" : action) {
+                case "delete":
+                    int id = getId(request);
+                    log.info("Delete {}", id);
+                    mealRestController.delete(id);
+                    response.sendRedirect("meals");
+                    break;
+                case "create":
+                case "update":
+                    final Meal meal = "create".equals(action) ?
+                            new Meal(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), "", 1000, AuthorizedUser.getId()) :
+                            mealRestController.get(getId(request));
+                    request.setAttribute("meal", meal);
+                    request.getRequestDispatcher("/mealForm.jsp").forward(request, response);
+                    break;
+                case "all":
+                default:
+                    log.info("getAll");
+                    request.setAttribute("meals",
+                            MealsUtil.getWithExceeded(mealRestController.getAll(), MealsUtil.DEFAULT_CALORIES_PER_DAY));
+                    request.getRequestDispatcher("/meals.jsp").forward(request, response);
+                    break;
+            }
         }
     }
 
