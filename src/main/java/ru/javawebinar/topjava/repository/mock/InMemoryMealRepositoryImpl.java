@@ -24,7 +24,6 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
 
     @Override
     public Meal save(Meal meal, int userId) {
-        ;
         if (meal.isNew()) {
             meal.setId(counter.incrementAndGet());
             repository.put(meal.getId(), meal);
@@ -37,15 +36,12 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
 
     @Override
     public boolean delete(int id, int userId) {
-        Meal meal = repository.get(id);
-        return meal != null && meal.getUserId() == userId && repository.remove(id) != null;
+        return isMealNotNullAndTrueUserId(id, userId) && repository.remove(id) != null;
     }
 
     @Override
     public Meal get(int id, int userId) {
-        Meal meal = repository.get(id);
-        if (meal != null && meal.getUserId() == userId) return meal;
-        else return null;
+        return isMealNotNullAndTrueUserId(id, userId) ? repository.get(id) : null;
     }
 
     @Override
@@ -62,6 +58,11 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
                 .filter(meal -> isBetween(meal.getDateTime(), startDateTime, endDateTime))
                 .sorted(Comparator.comparing(Meal::getDateTime).reversed())
                 .collect(Collectors.toList());
+    }
+    
+    private boolean isMealNotNullAndTrueUserId(int id, int userId){
+        Meal meal = repository.get(id);
+        return (meal != null && meal.getUserId() == userId);
     }
 }
 
