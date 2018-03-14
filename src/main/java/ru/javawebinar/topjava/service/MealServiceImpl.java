@@ -6,7 +6,7 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -42,8 +42,8 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public List<Meal> getBetween(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
-        return repository.getBetween(userId, startDateTime, endDateTime);
+    public List<Meal> getBetween(LocalDate startDate, LocalDate endDate, int userId) {
+        return repository.getBetween(userId, startDate, endDate);
     }
 
 }

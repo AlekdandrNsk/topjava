@@ -20,7 +20,7 @@ public class UserServlet extends HttpServlet {
         if (request.getParameter("userId") != null) {
             AuthorizedUser.setId(Integer.parseInt(request.getParameter("userId")));
             response.sendRedirect("meals");
-        }else
-        request.getRequestDispatcher("/users.jsp").forward(request, response);
+        } else
+            request.getRequestDispatcher("/users.jsp").forward(request, response);
     }
 }

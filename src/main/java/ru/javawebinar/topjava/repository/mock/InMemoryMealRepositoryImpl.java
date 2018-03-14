@@ -5,7 +5,7 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -46,21 +46,21 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
 
     @Override
     public List<Meal> getAll(int userId) {
-        return getBetween(userId, LocalDateTime.MIN, LocalDateTime.MAX);
+        return getBetween(userId, LocalDate.MIN, LocalDate.MAX);
     }
 
     @Override
-    public List<Meal> getBetween(int userId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        Objects.requireNonNull(startDateTime);
-        Objects.requireNonNull(endDateTime);
+    public List<Meal> getBetween(int userId, LocalDate startDate, LocalDate endDate) {
+        Objects.requireNonNull(startDate);
+        Objects.requireNonNull(endDate);
         return repository.values().stream()
                 .filter(meal -> meal.getUserId() == userId)
-                .filter(meal -> isBetween(meal.getDateTime(), startDateTime, endDateTime))
+                .filter(meal -> isBetween(meal.getDate(), startDate, endDate))
                 .sorted(Comparator.comparing(Meal::getDateTime).reversed())
                 .collect(Collectors.toList());
     }
-    
-    private boolean isMealNotNullAndTrueUserId(int id, int userId){
+
+    private boolean isMealNotNullAndTrueUserId(int id, int userId) {
         Meal meal = repository.get(id);
         return (meal != null && meal.getUserId() == userId);
     }

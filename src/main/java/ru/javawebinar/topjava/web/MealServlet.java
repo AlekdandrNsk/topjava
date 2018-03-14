@@ -80,28 +80,28 @@ public class MealServlet extends HttpServlet {
         String action = request.getParameter("action");
 
 
-            switch (action == null ? "all" : action) {
-                case "delete":
-                    int id = getId(request);
-                    log.info("Delete {}", id);
-                    mealRestController.delete(id);
-                    response.sendRedirect("meals");
-                    break;
-                case "create":
-                case "update":
-                    final Meal meal = "create".equals(action) ?
-                            new Meal(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), "", 1000, AuthorizedUser.getId()) :
-                            mealRestController.get(getId(request));
-                    request.setAttribute("meal", meal);
-                    request.getRequestDispatcher("/mealForm.jsp").forward(request, response);
-                    break;
-                case "all":
-                default:
-                    log.info("getAll");
-                    request.setAttribute("meals",
-                            MealsUtil.getWithExceeded(mealRestController.getAll(), MealsUtil.DEFAULT_CALORIES_PER_DAY));
-                    request.getRequestDispatcher("/meals.jsp").forward(request, response);
-                    break;
+        switch (action == null ? "all" : action) {
+            case "delete":
+                int id = getId(request);
+                log.info("Delete {}", id);
+                mealRestController.delete(id);
+                response.sendRedirect("meals");
+                break;
+            case "create":
+            case "update":
+                final Meal meal = "create".equals(action) ?
+                        new Meal(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), "", 1000, AuthorizedUser.getId()) :
+                        mealRestController.get(getId(request));
+                request.setAttribute("meal", meal);
+                request.getRequestDispatcher("/mealForm.jsp").forward(request, response);
+                break;
+            case "all":
+            default:
+                log.info("getAll");
+                request.setAttribute("meals",
+                        MealsUtil.getWithExceeded(mealRestController.getAll(), MealsUtil.DEFAULT_CALORIES_PER_DAY));
+                request.getRequestDispatcher("/meals.jsp").forward(request, response);
+                break;
 
         }
     }
