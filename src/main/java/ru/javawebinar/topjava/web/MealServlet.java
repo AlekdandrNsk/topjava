@@ -78,10 +78,7 @@ public class MealServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (request.getParameter("userId") != null) {
-            AuthorizedUser.setId(Integer.parseInt(request.getParameter("userId")));
-            response.sendRedirect("meals");
-        } else {
+
 
             switch (action == null ? "all" : action) {
                 case "delete":
@@ -105,7 +102,7 @@ public class MealServlet extends HttpServlet {
                             MealsUtil.getWithExceeded(mealRestController.getAll(), MealsUtil.DEFAULT_CALORIES_PER_DAY));
                     request.getRequestDispatcher("/meals.jsp").forward(request, response);
                     break;
-            }
+
         }
     }
 
