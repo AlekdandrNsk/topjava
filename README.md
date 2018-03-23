@@ -2,6 +2,9 @@ Java Enterprise Online Project
 ===============================
 Разработка полнофункционального Spring/JPA Enterprise приложения c авторизацией и правами доступа на основе ролей с использованием наиболее популярных инструментов и технологий Java: Maven, Spring MVC, Security, JPA(Hibernate), REST(Jackson), Bootstrap (css,js), datatables, jQuery + plugins, Java 8 Stream and Time API и хранением в базах данных Postgresql и HSQLDB.
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/43987234113741c98d72641c3bad2fe2)](https://www.codacy.com/app/AlekdandrNsk/topjava?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AlekdandrNsk/topjava&amp;utm_campaign=Badge_Grade)
+
+[![Dependency Status](https://www.versioneye.com/user/projects/5ab3bff10fb24f44b0618d86/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5ab3bff10fb24f44b0618d86)
 ![topjava_structure](https://user-images.githubusercontent.com/13649199/27433714-8294e6fe-575e-11e7-9c41-7f6e16c5ebe5.jpg)
 
     Когда вы слышите что-то, вы забываете это.
@@ -10,7 +13,6 @@ Java Enterprise Online Project
     вы начинаете понимать это
 
     Старинная китайская поговорка
-
 ## <a href="description.md">Описание и план проекта</a>
 ### <a href="http://topjava.herokuapp.com/" target=_blank>Демо разрабатываемого приложения</a>
 ### [Изменения проекта (Release Notes)](ReleaseNotes.md)
