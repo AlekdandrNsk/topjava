@@ -25,13 +25,9 @@ public class JpaMealRepositoryImpl implements MealRepository {
         meal.setUser(ref);
         if (meal.isNew()) {
             em.persist(meal);
-            meal.setUser(ref);
             return meal;
         } else {
-            Meal meal1 = em.createNamedQuery(Meal.UPDATE, Meal.class)
-                    .setParameter("id", meal.getId())
-                    .getSingleResult();
-            return meal1.getUser().getId() != userId ? null : em.merge(meal);
+            return get(meal.getId(), userId) == null ? null : em.merge(meal);
         }
     }
 

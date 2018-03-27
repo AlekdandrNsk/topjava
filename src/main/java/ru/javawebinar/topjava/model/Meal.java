@@ -14,7 +14,6 @@ import java.time.LocalTime;
         @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id=:id AND m.user.id=:userId"),
         @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.user.id=?1 ORDER BY m.dateTime desc"),
         @NamedQuery(name = Meal.ALL_SORTED_BETWEEN, query = "SELECT m FROM Meal m WHERE m.user.id=?1 AND m.dateTime >= ?2 AND m.dateTime <= ?3 ORDER BY m.dateTime desc"),
-        @NamedQuery(name = Meal.UPDATE, query = "SELECT m FROM Meal m WHERE m.id=:id"),
 })
 
 @Entity
@@ -24,7 +23,6 @@ public class Meal extends AbstractBaseEntity {
     public static final String DELETE = "Meal.delete";
     public static final String ALL_SORTED = "Meal.getAllSorted";
     public static final String ALL_SORTED_BETWEEN = "Meal.getAllSortedBetween";
-    public static final String UPDATE = "Meal.update";
 
     @Column(name = "date_time")
     @NotNull
@@ -32,14 +30,16 @@ public class Meal extends AbstractBaseEntity {
 
     @Column(name = "description", nullable = false)
     @NotBlank
-    @Size(min = 5, max = 100)
+    @Size(min = 2, max = 100)
     private String description;
 
-    @Column(name = "calories", columnDefinition = "int default 2000")
+    @Column(name = "calories", nullable = false)
+    @Range(min = 10, max = 5000)
     private int calories;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @NotNull
     private User user;
 
     public Meal() {

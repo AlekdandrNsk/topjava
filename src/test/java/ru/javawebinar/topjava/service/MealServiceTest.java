@@ -4,6 +4,7 @@ import org.junit.AfterClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.rules.Stopwatch;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.junit.runner.RunWith;
@@ -23,6 +24,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
@@ -47,20 +49,10 @@ public class MealServiceTest {
     private MealService service;
 
     @Rule
-    public TestWatcher watcher = new TestWatcher() {
-
-        private long time;
-
+    public Stopwatch stopwatcher = new Stopwatch() {
         @Override
-        protected void starting(Description description) {
-            time = System.nanoTime();
-        }
-
-        @Override
-        protected void finished(Description description) {
-            time = System.nanoTime() - time;
-            Double timeSec = (double) (time) / 1000000000;
-            String logTest = "Test " + description.getMethodName() + " was completed in " + timeSec + " seconds";
+        protected void finished(long nanos, Description description) {
+            String logTest = "Test " + description.getMethodName() + " was completed in " + TimeUnit.NANOSECONDS.toMillis(nanos) + " ms";
             WATCHED_LIST.add(logTest);
             log.info(logTest);
         }
@@ -73,13 +65,6 @@ public class MealServiceTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    @Test
-    public void throwsNotFoundException() {
-        thrown.expect(NotFoundException.class);
-        thrown.expectMessage("happened?");
-        throw new NotFoundException("What happened?");
-    }
 
     @Test
     public void delete() throws Exception {
