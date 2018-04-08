@@ -10,7 +10,7 @@ import static ru.javawebinar.topjava.UserTestData.USER;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
 import static ru.javawebinar.topjava.UserTestData.assertMatch;
 
-@ActiveProfiles({"datajpa", "datajpa,jpa"})
+@ActiveProfiles("datajpa")
 public class DataJpaUserServiceTest extends AbstractUserServiceTest {
 
     @Test

@@ -9,7 +9,7 @@ import ru.javawebinar.topjava.service.AbstractMealServiceTest;
 import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 
-@ActiveProfiles({"datajpa", "datajpa,jpa"})
+@ActiveProfiles("datajpa")
 public class DataJpaMealServiceTest extends AbstractMealServiceTest {
 
     @Test
