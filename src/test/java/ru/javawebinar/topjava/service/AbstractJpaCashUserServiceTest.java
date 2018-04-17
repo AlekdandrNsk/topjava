@@ -11,6 +11,7 @@ public abstract class AbstractJpaCashUserServiceTest extends AbstractUserService
 
     @Before
     public void setUp() throws Exception {
+        super.setUp();
         jpaUtil.clear2ndLevelHibernateCache();
     }
 }
