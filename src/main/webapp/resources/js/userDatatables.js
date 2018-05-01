@@ -40,3 +40,18 @@ $(function () {
     });
     makeEditable();
 });
+
+function changeEnabled(id) {
+    var enabled;
+    $("#changeBox").checked ? enabled = true : enabled = false;
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl + id,
+        data: "enabled=" + enabled,
+        success: function () {
+            $("#" + id).toggleClass("disabled");
+            successNoty(enabled ? "common.enabled" : "common.disabled");
+        }
+    });
+}
+
