@@ -9,36 +9,38 @@
 <script type="text/javascript" src="resources/js/mealDatatables.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
-
-<h3><spring:message code="meal.title"/></h3>
-<br/>
-<form method="post" action="meals/filter">
-    <dl>
-        <dt><spring:message code="meal.startDate"/>:</dt>
-        <dd><input type="date" name="startDate" value="${param.startDate}"></dd>
-    </dl>
-    <dl>
-        <dt><spring:message code="meal.endDate"/>:</dt>
-        <dd><input type="date" name="endDate" value="${param.endDate}"></dd>
-    </dl>
-    <dl>
-        <dt><spring:message code="meal.startTime"/>:</dt>
-        <dd><input type="time" name="startTime" value="${param.startTime}"></dd>
-    </dl>
-    <dl>
-        <dt><spring:message code="meal.endTime"/>:</dt>
-        <dd><input type="time" name="endTime" value="${param.endTime}"></dd>
-    </dl>
-    <button type="submit"><spring:message code="meal.filter"/></button>
-</form>
-
-<button class="btn btn-primary" onclick="add()">
-    <span class="fa fa-plus"></span>
-    <spring:message code="common.add"/>
-</button>
-
 <div class="jumbotron">
     <div class="container">
+
+        <h3><spring:message code="meal.title"/></h3>
+        <br/>
+
+        <form id="filter">
+            <div class="col-sm-3 my-1">
+                <label for="startDate"><spring:message code="meal.startDate"/>:</label>
+                <input type="date" class="form-control" id="startDate" name="startDate">
+            </div>
+            <div class="col-sm-3 my-1">
+                <label for="endDate"><spring:message code="meal.endDate"/>:</label>
+                <input type="date" class="form-control" id="endDate" name="endDate">
+            </div>
+            <div class="col-sm-3 my-1">
+                <label for="startTime"><spring:message code="meal.startTime"/>:</label>
+                <input type="time" class="form-control" id="startTime" name="startTime">
+            </div>
+            <div class="col-sm-3 my-1">
+                <label for="endTime"><spring:message code="meal.endTime"/>:</label>
+                <input type="time" class="form-control" id="endTime" name="endTime">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="filterMeals()">
+                <spring:message code="meal.filter"/>
+            </button>
+            <button type="button" class="btn btn-primary" onclick="resetForm()">
+                <spring:message code="meal.reset"/>
+            </button>
+        </form>
+
+
         <table class="table table-striped" id="datatable">
             <thead>
             <tr>

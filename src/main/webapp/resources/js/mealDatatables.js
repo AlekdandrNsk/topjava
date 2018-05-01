@@ -1,4 +1,4 @@
-var ajaxUrl = "ajax/admin/meals/";
+var ajaxUrl = "ajax/meals/";
 var datatableApi;
 
 // $(document).ready(function () {
@@ -34,3 +34,38 @@ $(function () {
     });
     makeEditable();
 });
+
+function filterMeals() {
+    var form = $("#filter");
+    $.ajax({
+        type: "GET",
+        url: "ajax/meals/filter",
+        data: form.serialize(),
+        success: function (data) {
+            datatableApi.clear().rows.add(data).draw();
+            successNoty("Filtered");
+        }
+    });
+}
+
+function resetForm() {
+    $('#filter').trigger( 'reset' );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
