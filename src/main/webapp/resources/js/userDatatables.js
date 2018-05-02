@@ -41,17 +41,15 @@ $(function () {
     makeEditable();
 });
 
-function changeEnabled(id) {
-    var enabled;
-    $("#changeBox").checked ? enabled = true : enabled = false;
+function changeEnabled(chkbox, id) {
+    var enabled = chkbox.is(":checked");
     $.ajax({
-        type: "POST",
         url: ajaxUrl + id,
-        data: "enabled=" + enabled,
-        success: function () {
-            $("#" + id).toggleClass("disabled");
-            successNoty(enabled ? "common.enabled" : "common.disabled");
-        }
+        type: "POST",
+        data: "enabled=" + enabled
+    }).done(function () {
+        chkbox.closest("tr").toggleClass("disabled");
+        successNoty(enabled ? "Enabled" : "Disabled");
     });
 }
 

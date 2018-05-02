@@ -40,6 +40,10 @@
             </button>
         </form>
 
+        <button class="btn btn-primary" onclick="add()">
+            <span class="fa fa-plus"></span>
+            <spring:message code="common.add"/>
+        </button>
 
         <table class="table table-striped" id="datatable">
             <thead>
@@ -106,7 +110,7 @@
                     <span class="fa fa-close" aria-hidden="true"></span>
                     <spring:message code="common.cancel"/>
                 </button>
-                <button type="button" class="btn btn-primary" onclick="save()">
+                <button type="button" class="btn btn-primary" onclick="saveMeal()">
                     <span class="fa fa-check" aria-hidden="true"></span>
                     <spring:message code="common.save"/>
                 </button>

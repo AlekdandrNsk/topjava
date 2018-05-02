@@ -27,9 +27,13 @@ function deleteRow(id) {
     });
 }
 
+function clearAddDrawTable(data) {
+    datatableApi.clear().rows.add(data).draw();
+}
+
 function updateTable() {
     $.get(ajaxUrl, function (data) {
-        datatableApi.clear().rows.add(data).draw();
+        clearAddDrawTable(data);
     });
 }
 

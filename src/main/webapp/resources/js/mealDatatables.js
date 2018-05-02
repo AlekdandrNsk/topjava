@@ -28,7 +28,7 @@ $(function () {
         "order": [
             [
                 0,
-                "asc"
+                "desc"
             ]
         ]
     });
@@ -39,20 +39,33 @@ function filterMeals() {
     var form = $("#filter");
     $.ajax({
         type: "GET",
-        url: "ajax/meals/filter",
+        url: ajaxUrl + "filter",
         data: form.serialize(),
         success: function (data) {
-            datatableApi.clear().rows.add(data).draw();
+            clearAddDrawTable(data);
             successNoty("Filtered");
         }
     });
 }
 
 function resetForm() {
-    $('#filter').trigger( 'reset' );
+    $('#filter').trigger('reset');
+    updateTable();
 }
 
-
+function saveMeal() {
+    var form = $("#detailsForm");
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl,
+        data: form.serialize(),
+        success: function () {
+            $("#editRow").modal("hide");
+            filterMeals();
+            successNoty("Saved");
+        }
+    });
+}
 
 
 
