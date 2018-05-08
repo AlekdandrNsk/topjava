@@ -20,11 +20,16 @@ function updateRow(id) {
     $("#modalTitle").html(i18n["editTitle"]);
     $.get(ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {
-            form.find("input[name='" + key + "']").val(value);
+            form.find("input[name='" + key + "']").val(key === "dateTime" ? formatDate(value) : value);
         });
         $('#editRow').modal();
     });
 }
+
+function formatDate(date) {
+    return date.substring(0, 10) + " " + date.substring(11, 16);
+}
+
 
 function deleteRow(id) {
     $.ajax({
