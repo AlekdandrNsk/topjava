@@ -91,31 +91,3 @@ function renderDeleteBtn(data, type, row) {
         return "<a onclick='deleteRow(" + row.id + ");'><span class='fa fa-remove'></span></a>";
     }
 }
-
-var failedNote;
-
-function closeNoty() {
-    if (failedNote) {
-        failedNote.close();
-        failedNote = undefined;
-    }
-}
-
-function successNoty(key) {
-    closeNoty();
-    new Noty({
-        text: "<span class='fa fa-lg fa-check'></span> &nbsp;" + i18n[key],
-        type: 'success',
-        layout: "bottomRight",
-        timeout: 1000
-    }).show();
-}
-
-function failNoty(jqXHR) {
-    closeNoty();
-    failedNote = new Noty({
-        text: "<span class='fa fa-lg fa-exclamation-circle'></span> &nbsp;Error status: " + jqXHR.status,
-        type: "error",
-        layout: "bottomRight"
-    }).show();
-}
