@@ -1,4 +1,6 @@
 package ru.javawebinar.topjava.util;
 
-public interface RepoGroup {
+import javax.validation.groups.Default;
+
+public interface RepoGroup extends Default{
 }
