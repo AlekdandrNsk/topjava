@@ -16,7 +16,6 @@
                 <span class="fa fa-sign-in"></span>
             </button>
         </form:form>
-        <jsp:include page="fragments/locale.jsp"/>
     </div>
 </nav>
 
@@ -79,7 +78,6 @@
     <c:if test="${not empty param.username}">
     setCredentials("${param.username}", "");
     </c:if>
-
     function setCredentials(username, password) {
         $('input[name="username"]').val(username);
         $('input[name="password"]').val(password);
