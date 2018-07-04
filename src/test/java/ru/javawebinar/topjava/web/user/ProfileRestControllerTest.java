@@ -69,6 +69,8 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(USER))
                 .content(JsonUtil.writeValue(updatedTo)))
                 .andDo(print())
+
+
                 .andExpect(status().isUnprocessableEntity())
                 .andExpect(errorType(ErrorType.VALIDATION_ERROR))
                 .andDo(print());
